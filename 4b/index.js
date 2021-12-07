@@ -193,6 +193,8 @@ app.post("/editprov", uploadHelper("image"), function (req, res) {
     image = req.file.filename;
   }
 
+  console.log(id);
+
   const query = `UPDATE provinsi_tb SET nama="${name}", diresmikan = "${date}", photo = "${image}", pulau = "${pulau}" WHERE id = ${id}`;
 
   dbConnection.getConnection((err, conn) => {
@@ -202,7 +204,7 @@ app.post("/editprov", uploadHelper("image"), function (req, res) {
         message: "Connection Error",
       };
 
-      res.redirect(`/prov`);
+      res.redirect(`/editprov/${id}`);
     }
 
     conn.query(query, (err, results) => {
@@ -212,14 +214,14 @@ app.post("/editprov", uploadHelper("image"), function (req, res) {
           message: "Update Data Failed",
         };
 
-        res.redirect(`/prov`);
+        res.redirect(`/editprov/${id}`);
       } else {
         req.session.message = {
           color: "green",
           message: "Data Successfully Update",
         };
 
-        res.redirect(`/prov`);
+        res.redirect(`/editprov/${id}`);
       }
     });
 
@@ -317,7 +319,7 @@ app.post("/addkota", uploadHelper("image"), function (req, res) {
   const image = req.file.filename;
 
   // hold query
-  const query = `INSERT INTO provinsi_tb (nama, diresmikan, photo, provinsi) VALUES ("${name}", "${date}", "${image}", "${provinsi}")`;
+  const query = `INSERT INTO kabupaten_tb (nama, diresmikan, photo, provinsi_id) VALUES ("${name}", "${date}", "${image}", "${provinsi}")`;
 
   // verif if input is blank
   if (name == "" || date == "" || provinsi == "") {
@@ -326,7 +328,7 @@ app.post("/addkota", uploadHelper("image"), function (req, res) {
       message: "Input must be filled",
     };
 
-    res.redirect("/addprov");
+    res.redirect("/addkota");
     return;
   }
 
@@ -335,7 +337,7 @@ app.post("/addkota", uploadHelper("image"), function (req, res) {
 
     conn.query(query, (err, results) => {
       if (err) {
-        res.redirect("/addprov");
+        res.redirect("/addkota");
       } else {
         req.session.message = {
           color: "green",
@@ -369,6 +371,73 @@ app.get("/editkota/:id", function (req, res) {
       });
     });
 
+    conn.release();
+  });
+});
+
+app.post("/editkota", uploadHelper("image"), function (req, res) {
+  let { id, name, date, provinsi, oldImage } = req.body;
+
+  let image = oldImage.replace(uploadPath, "");
+
+  if (req.file) {
+    image = req.file.filename;
+  }
+
+  console.log(id);
+
+  const query = `UPDATE provinsi_tb SET nama="${name}", diresmikan = "${date}", photo = "${image}", pulau = "${provinsi}" WHERE id = ${id}`;
+
+  dbConnection.getConnection((err, conn) => {
+    if (err) {
+      req.session.message = {
+        color: "red",
+        message: "Connection Error",
+      };
+
+      res.redirect(`/editkota/${id}`);
+    }
+
+    conn.query(query, (err, results) => {
+      if (err) {
+        req.session.message = {
+          color: "red",
+          message: "Update Data Failed",
+        };
+
+        res.redirect(`/editkota/${id}`);
+      } else {
+        req.session.message = {
+          color: "green",
+          message: "Data Successfully Update",
+        };
+
+        res.redirect(`/editkota/${id}`);
+      }
+    });
+
+    conn.release();
+  });
+});
+
+app.get("/delkota/:id", function (req, res) {
+  const { id } = req.params;
+
+  const query = `DELETE FROM kabupaten_tb WHERE id = ${id}`;
+
+  dbConnection.getConnection((err, conn) => {
+    if (err) throw err;
+
+    conn.query(query, (err, results) => {
+      if (err) {
+        req.session.message = {
+          color: "red",
+          message: err.sqlMessage,
+        };
+      } else {
+        res.redirect("/kota");
+      }
+    });
     conn.release();
   });
 });

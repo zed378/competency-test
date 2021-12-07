@@ -2,15 +2,23 @@
 {{> nav}}
 
 <div class="boxcontainer">
+    {{#if message}}
+    <div class="flash-message">
+        <p style="margin: 10px 0; color: {{message.color}}; text-align:center;">
+            {{message.message}}
+        </p>
+    </div>
+    {{/if}}
     <div class="box" style="height: 65%; width: 50%">
         <h1>{{title}}</h1>
         <input type="hidden" value="" name="id">
-        <form id="edit-form" action="/add-artist" method="post" enctype="multipart/form-data">
+        <form id="edit-form" action="/editkota" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="{{kab.id}}" name="id">
             <div class="left">
                 <div class="file-input-group text-start">
                     <div id="preview-thumbnail"></div>
-                    <input type="hidden" value="" name="oldImage">
-                    <input type="hidden" value="" id="url-thumbnail">
+                    <input type="hidden" value="{{kab.img}}" name="oldImage">
+                    <input type="hidden" value="{{kab.img}}" id="url-thumbnail">
                     <input type="file" hidden id="file" name="image" onchange="handleChange()" />
                     <label id="attach" for="file"><i class="fas fa-paperclip"></i> Masukkan Foto</label>
                 </div>

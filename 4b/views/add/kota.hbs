@@ -2,6 +2,13 @@
 {{> nav}}
 
 <div class="boxcontainer">
+    {{#if message}}
+    <div class="flash-message">
+        <p style="margin: 10px 0; color: {{message.color}}; text-align:center;">
+            {{message.message}}
+        </p>
+    </div>
+    {{/if}}
     <div class="box" style="height: 65%; width: 50%">
         <h1>Tambah Kota</h1>
         <form id="edit-form" action="/addkota" method="post" enctype="multipart/form-data">

@@ -11,8 +11,8 @@
     {{/if}}
     <div class="box" style="height: 65%; width: 50%">
         <h1>{{title}}</h1>
-        <input type="hidden" value="{{prov.id}}" name="id">
         <form id="edit-form" action="/editprov" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="{{prov.id}}" name="id">
             <div class="left">
                 <div class="file-input-group text-start">
                     <div id="preview-thumbnail"></div>
