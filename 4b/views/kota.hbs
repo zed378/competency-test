@@ -1,0 +1,29 @@
+{{> header}}
+{{> nav}}
+
+<h1 class="text-center">Data Kota</h1>
+
+<div class="main-panel">
+    <div class="content-wrapper p-3">
+        <button class="btn btn-outline-primary btn-md mb-3" onclick="window.location.href='/addkota'"><i
+                class="fas fa-plus"></i> Tambah Kota</button>
+        <div class="row">
+            <!-- template -->
+            {{#each kab}}
+            <div class="col-xl-3 col-sm-6 grid-margin">
+                <div class="card p-3">
+                    <div class="text-center">
+                        <img class="img-fluid mb-3" src="{{this.img}}" alt="">
+                        <h3>{{this.nama}}</h3>
+                    </div>
+                    <button class="btn btn-primary" onclick="window.location.href='/detailkota/{{this.id}}'">Lihat
+                        Detail</button>
+                </div>
+            </div>
+            {{/each}}
+            <!-- end of template -->
+        </div>
+    </div>
+</div>
+
+{{> footer}}

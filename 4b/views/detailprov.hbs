@@ -1,0 +1,28 @@
+{{> header}}
+{{> nav}}
+
+<div class="content-wrapper mt-5">
+    <div class="row">
+        <!-- template -->
+        <div class="col-xl-6 col-sm-6 grid-margin mx-auto">
+            <div class="card p-3">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img class="img-fluid mb-3" src="{{prov.img}}" alt="">
+                    </div>
+                    <div class="col-lg-6 my-auto">
+                        <h1 class="text-center">{{prov.nama}}</h1>
+                        <p>Diresmikan pada: {{prov.diresmikan}}. Berada di pulau {{prov.pulau}}</p>
+                    </div>
+                </div>
+                <div class="btnwrap">
+                    <button class="btn btn-primary" onclick="window.location.href='/editprov/{{prov.id}}'">Edit</button>
+                    <button class="btn btn-danger" onclick="window.location.href='/delprov/{{prov.id}}'">Delete</button>
+                </div>
+            </div>
+        </div>
+        <!-- end of template -->
+    </div>
+</div>
+
+{{> footer}}

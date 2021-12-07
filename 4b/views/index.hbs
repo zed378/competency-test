@@ -1,0 +1,22 @@
+{{> header}}
+{{> nav}}
+
+<div class="container text-center p-2">
+    <h1>Selamat Datang</h1>
+    <h3>Anda bisa eksplorasi provinsi dan kabupaten yang ada di Indonesia</h3>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <img src="/public/img/city.svg" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="btnwrap">
+        <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/prov'">Eksplorasi
+            Provinsi</button>
+        <button class="btn btn-outline-info" type="button" onclick="window.location.href='/kota'">Eksplorasi
+            Kota</button>
+    </div>
+</div>
+
+{{> footer}}

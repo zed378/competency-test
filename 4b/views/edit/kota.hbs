@@ -1,0 +1,47 @@
+{{> header}}
+{{> nav}}
+
+<div class="boxcontainer">
+    <div class="box" style="height: 65%; width: 50%">
+        <h1>{{title}}</h1>
+        <input type="hidden" value="" name="id">
+        <form id="edit-form" action="/add-artist" method="post" enctype="multipart/form-data">
+            <div class="left">
+                <div class="file-input-group text-start">
+                    <div id="preview-thumbnail"></div>
+                    <input type="hidden" value="" name="oldImage">
+                    <input type="hidden" value="" id="url-thumbnail">
+                    <input type="file" hidden id="file" name="image" onchange="handleChange()" />
+                    <label id="attach" for="file"><i class="fas fa-paperclip"></i> Masukkan Foto</label>
+                </div>
+            </div>
+            <div class="right">
+                <label for="name">Nama Kota</label>
+                <input type="text" id="name" name="name" value="{{kab.nama}}" />
+                <label for="date">Diresmikan</label>
+                <input type="date" id="date" name="date" value="{{kab.diresmikan}}" />
+                <label for="provinsi">Provinsi</label>
+                <input type="text" name="provinsi" id="provinsi" value="{{kab.provinsi_id}}">
+            </div>
+        </form>
+        <div class="button">
+            <button id="btn-update" form="edit-form" type="submit">Update Kota</button>
+            <button id="btn-cancel" onclick="window.location.href='/kota'">
+                Kembali
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const previewElement = document.getElementById('preview-thumbnail');
+    const urlThumbnail = document.getElementById('url-thumbnail').value;
+    previewElement.innerHTML = `<img src="${urlThumbnail}" style="max-width:250px; max-height: 250px;"/>`;
+
+    function handleChange() {
+        const value = URL.createObjectURL(event.target.files[0])
+        previewElement.innerHTML = `<img src="${value}" style="max-width:250px; max-height: 250px;" />`
+    }
+</script>
+
+{{> footer}}
