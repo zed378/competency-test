@@ -384,9 +384,7 @@ app.post("/editkota", uploadHelper("image"), function (req, res) {
     image = req.file.filename;
   }
 
-  console.log(id);
-
-  const query = `UPDATE provinsi_tb SET nama="${name}", diresmikan = "${date}", photo = "${image}", pulau = "${provinsi}" WHERE id = ${id}`;
+  const query = `UPDATE kabupaten_tb SET nama="${name}", diresmikan = "${date}", photo = "${image}", provinsi_id = "${provinsi}" WHERE id = ${id}`;
 
   dbConnection.getConnection((err, conn) => {
     if (err) {
